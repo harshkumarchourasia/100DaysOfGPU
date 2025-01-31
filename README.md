@@ -8,4 +8,4 @@ Day | Files & Summaries | Reference Material |
 2 | mat_mul.cu: Multiply two matrices | PMMP
 3 | tiled_mat_mul.cu: Tiled matrix multiplication | PMMP
 4 | conv1d.cu: Conv1D implementation | PMMP
-5 | conv2Dnaive.cu: Conv2D naive implementation | PMMP
+5 | conv2Dnaive.cu: Conv2D naive implementation; conv2Doptimized.cu Optimized kernel| PMMP

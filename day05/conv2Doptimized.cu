@@ -4,7 +4,10 @@
 #include <chrono> // Added for timing
 using namespace std;
 
-__global__ void conv2D(float *input, float *kernel, int k, int n, float *output)
+#define n 2
+__constant__ float d_kernel[2 * n + 1][2 * n + 1];
+
+__global__ void conv2D(float *input, int k, float *output)
 {
     int x = threadIdx.x;
     int y = threadIdx.y;
@@ -14,7 +17,7 @@ __global__ void conv2D(float *input, float *kernel, int k, int n, float *output)
         for (int j = -n; j <= n; j++)
         {
             if (0 <= x + i && x + i < k && 0 <= y + j && y + j < k)
-                value += input[k * (y + j) + x + i] * kernel[(2 * n + 1) * (n + j) + n + i];
+                value += input[k * (y + j) + x + i] * d_kernel[n + i][n + j];
         }
     }
     output[k * y + x] = value;
@@ -24,7 +27,6 @@ int main(void)
 {
 
     // kernel declaration
-
     int kernel_dim = 2 * n + 1;
     int kernel_size = kernel_dim * kernel_dim * sizeof(float);
     float h_kernel[kernel_dim][kernel_dim];
@@ -69,12 +71,11 @@ int main(void)
     // Start total timer
     auto total_start = chrono::high_resolution_clock::now();
 
-    float *d_input, *d_kernel, *d_output;
+    float *d_input, *d_output;
     cudaMalloc((void **)&d_input, input_size);
-    cudaMalloc((void **)&d_kernel, kernel_size);
     cudaMalloc((void **)&d_output, input_size);
     cudaMemcpy(d_input, h_input, input_size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_kernel, h_kernel, kernel_size, cudaMemcpyHostToDevice);
+    cudaMemcpyToSymbol(d_kernel, h_kernel, kernel_size);
 
     dim3 block_size(k, k);
 
@@ -84,7 +85,7 @@ int main(void)
     cudaEventCreate(&stop);
     cudaEventRecord(start);
 
-    conv2D<<<1, block_size>>>(d_input, d_kernel, k, n, d_output);
+    conv2D<<<1, block_size>>>(d_input, k, d_output);
 
     // Synchronize and check for errors
     cudaDeviceSynchronize();
