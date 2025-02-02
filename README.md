@@ -9,4 +9,5 @@ Day | Files & Summaries | Reference Material |
 3 | tiled_mat_mul.cu: Tiled matrix multiplication | PMMP
 4 | conv1d.cu: Conv1D implementation | PMMP
 5 | conv2Dnaive.cu: Conv2D naive implementation; conv2Doptimized.cu Optimized kernel | PMMP
-6 | conv2DpinnedMem:cu Conv2D with pinned memory 230X faster | PMMP
+6 | conv2DpinnedMem.cu: Conv2D with pinned memory 230X faster | PMMP
+7 | atomic_ops.cu: Learnt about cuda atomic operations and implemented and benchmarked histogram problem | cuda_by_example
