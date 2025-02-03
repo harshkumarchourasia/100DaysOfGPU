@@ -11,3 +11,4 @@ Day | Files & Summaries | Reference Material |
 5 | conv2Dnaive.cu: Conv2D naive implementation; conv2Doptimized.cu Optimized kernel | PMMP
 6 | conv2DpinnedMem.cu: Conv2D with pinned memory 230X faster | PMMP
 7 | atomic_ops.cu: Learnt about cuda atomic operations and implemented and benchmarked histogram problem | cuda_by_example
+8 | reduction.cu: Basics of reduction in CUDA | PMMP
