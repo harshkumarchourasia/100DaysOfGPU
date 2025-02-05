@@ -13,3 +13,4 @@ Day | Files & Summaries | Reference Material |
 7 | atomic_ops.cu: Learnt about cuda atomic operations and implemented and benchmarked histogram problem | cuda_by_example
 8 | reduction.cu: Basics of reduction in CUDA | PMMP
 9 | max_reduction.cu: Implemented optimized max reduction algorithm [10X faster than CPU algorithm] | PMMP
+10 | prefix_sum.cu: Implemented naive prefix sum algo in cuda c (TODO: Improve the algorithm) | PMMP
