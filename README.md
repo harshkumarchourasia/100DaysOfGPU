@@ -14,3 +14,4 @@ Day | Files & Summaries | Reference Material |
 8 | reduction.cu: Basics of reduction in CUDA | PMMP
 9 | max_reduction.cu: Implemented optimized max reduction algorithm [10X faster than CPU algorithm] | PMMP
 10 | prefix_sum.cu: Implemented naive prefix sum algo in cuda c (TODO: Improve the algorithm) | PMMP
+11 | prefix_sum.cu: Implemented optimized prefix sum algo in cuda c | PMMP
