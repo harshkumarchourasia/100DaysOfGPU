@@ -37,7 +37,7 @@ __global__ void get_sum(float *data, float *result, int nx)
     if (i < (1 + data_id) * nx)
         data_s[t] = data[i];
     if ((i + BLOCK_DIM) < (1 + data_id) * nx)
-        data_s[t] = data[i] + data[i + BLOCK_DIM];
+        data_s[t] += data[i + BLOCK_DIM];
     for (int stride = BLOCK_DIM / 2; stride >= 1; stride /= 2)
     {
         __syncthreads();
@@ -52,39 +52,63 @@ __global__ void get_sum(float *data, float *result, int nx)
     }
 }
 
-int main()
+__global__ void corr(int ny, int nx, const float *data, float *result, float *sums)
 {
-    int nx = 2000;
-    int ny = 5;
-    float *data;
-    data = (float *)malloc(nx * ny * sizeof(float));
-    for (int row = 0; row < ny; row++)
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int j = blockIdx.y * blockDim.y + threadIdx.y;
+    if (j > i || i >= ny || j >= ny)
+        return;
+    if (i == j)
     {
-        for (int col = 0; col < nx; col++)
-        {
-            data[row * nx + col] = row * 1.0f;
-        }
+        result[i + j * ny] = 1.0f;
+        return;
     }
+    float avg_i = sums[i] / nx;
+    float avg_j = sums[j] / nx;
+    float sum_ij = 0.0f;
+    float sum_i = 0.0f;
+    float sum_j = 0.0f;
 
-    float *d_data, *d_sums, *sums;
-    cudaMalloc((void **)&d_data, nx * ny * sizeof(float));
-    cudaMemcpy(d_data, data, nx * ny * sizeof(float), cudaMemcpyHostToDevice);
+    for (int k = 0; k < nx; k++)
+    {
+        float x = data[k + i * nx];
+        float y = data[k + j * nx];
+        sum_ij += (x - avg_i) * (y - avg_j);
+        sum_i += (x - avg_i) * (x- avg_i);
+        sum_j += (y - avg_j) * (y - avg_j);
+    }
+    result[i + j * ny] = sum_ij / sqrt(sum_i * sum_j);
+    result[j + i * ny] = sum_ij / sqrt(sum_i * sum_j);
+}
 
-    cudaMalloc((void **)&d_sums, ny * sizeof(float));
+void correlate(int ny, int nx, const float *data, float *result)
+{
+    float *d_data, *d_sums, *d_result;
+    gpuErrchk(cudaMalloc((void **)&d_data, nx * ny * sizeof(float)));
+    gpuErrchk(cudaMemcpy(d_data, data, nx * ny * sizeof(float), cudaMemcpyHostToDevice));
+
+    gpuErrchk(cudaMalloc((void **)&d_sums, ny * sizeof(float)));
+    gpuErrchk(cudaMemset(d_sums, 0, ny * sizeof(float)));
+
+    gpuErrchk(cudaMalloc((void **)&d_result, ny * ny * sizeof(float)));
 
     dim3 dimGrid((nx + 2 * BLOCK_DIM - 1) / (2 * BLOCK_DIM), ny);
 
     get_sum<<<dimGrid, BLOCK_DIM>>>(d_data, d_sums, nx);
-    gpuErrchk(cudaPeekAtLastError());
     gpuErrchk(cudaDeviceSynchronize());
+    gpuErrchk(cudaPeekAtLastError());
+    
+    
+    dim3 grid_dim((ny+31)/32, (ny+31)/32);
+    dim3 block_dim(32,32);
+    corr<<<grid_dim, block_dim>>>(ny, nx, d_data, d_result, d_sums);
 
-    sums = (float *)malloc(ny * sizeof(float));
-    cudaMemcpy(sums, d_sums, ny * sizeof(float), cudaMemcpyDeviceToHost);
-    cudaFree(d_data);
-    cudaFree(d_sums);
-    delete[] data;
-    for (int i = 0; i < ny; i++)
-    {
-        cout << "i: " << i << " sum: " << sums[i] << endl;
-    }
+    gpuErrchk(cudaDeviceSynchronize());
+    gpuErrchk(cudaPeekAtLastError());
+
+    gpuErrchk(cudaMemcpy(result, d_result, ny * ny * sizeof(float), cudaMemcpyDeviceToHost));
+
+    gpuErrchk(cudaFree(d_data));
+    gpuErrchk(cudaFree(d_result));
+    gpuErrchk(cudaFree(d_sums));
 }
