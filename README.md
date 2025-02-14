@@ -17,3 +17,4 @@ Day | Files & Summaries | Reference Material |
 11 | prefix_sum.cu: Implemented optimized prefix sum algo in cuda c | PMMP
 12 | pytorch-profiling.ipynb: Learnt about profiling and running CUDA code in pytorch | GPU mode
 13 | Started challenges. Day0 Challenge done! | ppc-exercises.cs.aalto.f
+14 | Day1 CP 1 Done | ppc-exercises.cs.aalto.f
