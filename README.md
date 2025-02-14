@@ -18,3 +18,4 @@ Day | Files & Summaries | Reference Material |
 12 | pytorch-profiling.ipynb: Learnt about profiling and running CUDA code in pytorch | GPU mode
 13 | Started challenges. Day0 Challenge done! | ppc-exercises.cs.aalto.f
 14 | Day1 CP 1 Done | ppc-exercises.cs.aalto.f
+15 | Day1 CP 4 Started | ppc-exercises.cs.aalto.f
