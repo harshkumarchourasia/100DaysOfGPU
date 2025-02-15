@@ -19,3 +19,4 @@ Day | Files & Summaries | Reference Material |
 13 | Started challenges. Day0 Challenge done! | ppc-exercises.cs.aalto.f
 14 | Day1 CP 1 Done | ppc-exercises.cs.aalto.f
 15 | Day1 CP 4 Done | ppc-exercises.cs.aalto.f
+16 | Day1 CP 5 Started | ppc-exercises.cs.aalto.f
