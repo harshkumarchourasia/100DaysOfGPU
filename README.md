@@ -20,3 +20,4 @@ Day | Files & Summaries | Reference Material |
 14 | Day1 CP 1 Done | ppc-exercises.cs.aalto.f
 15 | Day1 CP 4 Done | ppc-exercises.cs.aalto.f
 16 | Day1 CP 5 Started | ppc-exercises.cs.aalto.f
+17 | Matrix transpose implementation | NA
