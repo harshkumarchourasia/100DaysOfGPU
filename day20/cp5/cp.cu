@@ -8,6 +8,9 @@ This is the function you need to implement. Quick reference:
 */
 #include <iostream>
 #include <cuda_runtime.h>
+#include <stdio.h>
+#include <time.h>
+
 using namespace std;
 #define gpuErrchk(ans)                        \
     {                                         \
@@ -89,7 +92,6 @@ __global__ void mat_mul(float *A, float *B, float *C, int a2, int a1, int b2)
     int by = blockIdx.y;
     int tx = threadIdx.x;
     int ty = threadIdx.y;
-
     int col = bx * blockDim.x + tx;  
     int row = by * blockDim.y + ty;  
     float value = 0;
@@ -120,6 +122,13 @@ __global__ void mat_mul(float *A, float *B, float *C, int a2, int a1, int b2)
         C[row * b2 + col] = value;
 }
 
+__global__ void normalize_result(float *input, float *output, int ny){
+    int row = blockIdx.x * blockDim.x + threadIdx.x;
+    int col = blockIdx.y * blockDim.y + threadIdx.y;
+    if (row >= ny || col >= ny) return;
+    output[row * ny + col] = input[row * ny + col] / sqrt(__ldg(&input[row*ny+ row]) * __ldg(&input[col*ny+col]) );
+}
+
 void correlate(int ny, int nx, const float *data, float *result)
 {
     float *d_data, *d_sums, *d_result, *d_transpose; 
@@ -144,22 +153,27 @@ void correlate(int ny, int nx, const float *data, float *result)
     mat_mul<<< dimGrid2,block_dim >>>(d_data, d_transpose, d_result, nx, ny, ny);
 
     // Allocate pinned memory on host
-    float *_result;
-    gpuErrchk(cudaMallocHost((void**)&_result, ny * ny * sizeof(float)));
+    float *d_norm_result;
+    gpuErrchk(cudaMalloc((void**)&d_norm_result, ny * ny * sizeof(float)));
 
-    gpuErrchk(cudaMemcpy(_result, d_result, ny * ny * sizeof(float), cudaMemcpyDeviceToHost));
+    normalize_result<<< dimGrid2,block_dim >>>(d_result, d_norm_result, ny);
 
+    gpuErrchk(cudaMemcpy(result, d_norm_result, ny * ny * sizeof(float), cudaMemcpyDeviceToHost));
+
+    /*
     for(int i = 0; i < ny; i++){
         for(int j = 0; j < ny; j++){
             result[i*ny + j] = _result[i*ny + j] / sqrt(_result[j*ny + j] * _result[i*ny + i]);
         }
     }
+    */
 
     gpuErrchk(cudaFree(d_data));
     gpuErrchk(cudaFree(d_result));
     gpuErrchk(cudaFree(d_sums));
     gpuErrchk(cudaFree(d_transpose));
+    gpuErrchk(cudaFree(d_norm_result));
 
     // Free pinned memory
-    gpuErrchk(cudaFreeHost(_result));
+    // gpuErrchk(cudaFreeHost(_result));
 }
