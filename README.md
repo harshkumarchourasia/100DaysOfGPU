@@ -21,3 +21,4 @@ Day | Files & Summaries | Reference Material |
 15 | Day1 CP 4 Done | ppc-exercises.cs.aalto.f
 16 | Day1 CP 5 Started | ppc-exercises.cs.aalto.f
 17 | Matrix transpose implementation | NA
+18 | Non square matrix multiplication | NA
