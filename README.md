@@ -23,3 +23,4 @@ Day | Files & Summaries | Reference Material |
 17 | Matrix transpose implementation | NA
 18 | Non square matrix multiplication | NA
 19 | CP5 Optimized 25s => 5s runtime | ppc-exercises.cs.aalto.f
+20 | More optimizations of CP5 | ppc-exercises.cs.aalto.f
