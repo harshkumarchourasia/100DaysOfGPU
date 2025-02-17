@@ -16,11 +16,11 @@ Day | Files & Summaries | Reference Material |
 10 | prefix_sum.cu: Implemented naive prefix sum algo in cuda c (TODO: Improve the algorithm) | PMMP
 11 | prefix_sum.cu: Implemented optimized prefix sum algo in cuda c | PMMP
 12 | pytorch-profiling.ipynb: Learnt about profiling and running CUDA code in pytorch | GPU mode
-13 | Started challenges. Day0 Challenge done! | ppc-exercises.cs.aalto.f
-14 | CP 1 Done | ppc-exercises.cs.aalto.f
-15 | CP 4 Done | ppc-exercises.cs.aalto.f
-16 | CP 5 Started | ppc-exercises.cs.aalto.f
+13 | Started challenges. Day0 Challenge done! | ppc-exercises.cs.aalto.fi
+14 | CP 1 Done | ppc-exercises.cs.aalto.fi
+15 | CP 4 Done | ppc-exercises.cs.aalto.fi
+16 | CP 5 Started | ppc-exercises.cs.aalto.fi
 17 | Matrix transpose implementation | NA
 18 | Non square matrix multiplication | NA
-19 | CP5 Optimized 25s => 5s runtime | ppc-exercises.cs.aalto.f
-20 | More optimizations of CP5 | ppc-exercises.cs.aalto.f
+19 | CP5 Optimized 25s => 5s runtime | ppc-exercises.cs.aalto.fi
+20 | More optimizations of CP5 | ppc-exercises.cs.aalto.fi
