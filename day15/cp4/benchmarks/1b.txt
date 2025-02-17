@@ -1,2 +1,0 @@
-timeout 5.7
-random 999 999 5
