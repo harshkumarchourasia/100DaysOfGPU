@@ -1,2 +1,0 @@
-timeout 1.0
-random 10 100 0
