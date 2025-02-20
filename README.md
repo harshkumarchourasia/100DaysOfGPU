@@ -25,4 +25,4 @@ Day | Files & Summaries | Reference Material |
 19 | CP5 Optimized 25s => 5s runtime | ppc-exercises.cs.aalto.fi
 20-21 | More optimizations for CP5 Runtime 7.9 sec to 0.08 sec | ppc-exercises.cs.aalto.fi
 22 | SO6 - Radix sort | ppc-exercises.cs.aalto.fi
-23 | Read and implemented basic multi-gpu programming | NA
+23 | Read and implemented unified memory | NA
