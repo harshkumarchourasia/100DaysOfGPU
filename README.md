@@ -26,3 +26,5 @@ Day | Files & Summaries | Reference Material |
 20-21 | More optimizations for CP5 Runtime 7.9 sec to 0.08 sec | ppc-exercises.cs.aalto.fi
 22 | SO6 - Radix sort | ppc-exercises.cs.aalto.fi
 23 | Read and implemented unified memory | NA
+24 | Leetgpu.com | color-inversion
+25 | Leetgpu.com | 1d-conv
