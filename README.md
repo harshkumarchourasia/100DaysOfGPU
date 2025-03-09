@@ -30,3 +30,4 @@ Day | Files & Summaries | Reference Material |
 25 | Leetgpu.com | 1d-conv
 26 | Leetgpu.com | reverse-array
 27 | Leetgpu.com | matrix-transpose
+28 | Leetgpu.com | reduction
