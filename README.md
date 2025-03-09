@@ -29,3 +29,4 @@ Day | Files & Summaries | Reference Material |
 24 | Leetgpu.com | color-inversion
 25 | Leetgpu.com | 1d-conv
 26 | Leetgpu.com | reverse-array
+27 | Leetgpu.com | matrix-transpose
