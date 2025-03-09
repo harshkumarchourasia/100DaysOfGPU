@@ -28,3 +28,4 @@ Day | Files & Summaries | Reference Material |
 23 | Read and implemented unified memory | NA
 24 | Leetgpu.com | color-inversion
 25 | Leetgpu.com | 1d-conv
+26 | Leetgpu.com | reverse-array
