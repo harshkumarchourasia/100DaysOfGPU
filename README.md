@@ -1,4 +1,4 @@
-# CUDA 100 days Learning Journey
+# CUDA 1 Month Learning Journey
 
 
 
@@ -31,4 +31,4 @@ Day | Files & Summaries | Reference Material |
 26 | Leetgpu.com | reverse-array
 27 | Leetgpu.com | matrix-transpose
 28 | Leetgpu.com | reduction
-28 | Leetgpu.com | dor-product
+28 | Leetgpu.com | dot-product
